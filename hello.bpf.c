@@ -13,6 +13,10 @@ struct path_key {
   char path [MAX_PATH];
 };
 
+
+// i always get confuse there but remember exec_count is variable and we are placing that varible in section called map so that the usespace can use this section to build a map via sys_calls  
+// the maps section is not executable memory—it is a purely descriptive metadata section
+// therefore it canot have value therefore pointer of array is used in data type if you actually read this macro 
 struct {
   __uint(type, BPF_MAP_TYPE_HASH);
   __uint(MAX_COUNT, 16554);
