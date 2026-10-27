@@ -15,7 +15,7 @@ import (
 //
 // Used for safe lookups in a Collection or CollectionSpec.
 const (
-	helloProgHello = "hello"
+	helloProgHandelExceveTp = "handel_exceve_tp"
 )
 
 // loadHello returns the embedded CollectionSpec for hello.
@@ -60,7 +60,7 @@ type helloSpecs struct {
 //
 // It can be passed ebpf.CollectionSpec.Assign.
 type helloProgramSpecs struct {
-	Hello *ebpf.ProgramSpec `ebpf:"hello"`
+	HandelExceveTp *ebpf.ProgramSpec `ebpf:"handel_exceve_tp"`
 }
 
 // helloMapSpecs contains maps before they are loaded into the kernel.
@@ -111,12 +111,12 @@ type helloVariables struct {
 //
 // It can be passed to loadHelloObjects or ebpf.CollectionSpec.LoadAndAssign.
 type helloPrograms struct {
-	Hello *ebpf.Program `ebpf:"hello"`
+	HandelExceveTp *ebpf.Program `ebpf:"handel_exceve_tp"`
 }
 
 func (p *helloPrograms) Close() error {
 	return _HelloClose(
-		p.Hello,
+		p.HandelExceveTp,
 	)
 }
 

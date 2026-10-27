@@ -27,7 +27,7 @@ func main(){
 
 	defer objs.Close()
 
-	tp, err  := link.Tracepoint("syscalls", "sys_enter_execve", objs.Hello, nil)
+	tp, err  := link.Tracepoint("syscalls", "sys_enter_execve", objs.HandelExceveTp, nil)
 
 	if err != nil {
 		log.Fatal("Attaching Tracepoint", err)
