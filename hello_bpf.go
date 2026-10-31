@@ -7,14 +7,21 @@ import (
 	_ "embed"
 	"fmt"
 	"io"
+	"structs"
 
 	"github.com/cilium/ebpf"
 )
+
+type helloPathKey struct {
+	_    structs.HostLayout
+	Path [256]int8
+}
 
 // Names of all BPF objects in the ELF.
 //
 // Used for safe lookups in a Collection or CollectionSpec.
 const (
+	helloMapExecCount       = "exec_count"
 	helloProgHandelExceveTp = "handel_exceve_tp"
 )
 
@@ -67,6 +74,7 @@ type helloProgramSpecs struct {
 //
 // It can be passed ebpf.CollectionSpec.Assign.
 type helloMapSpecs struct {
+	ExecCount *ebpf.MapSpec `ebpf:"exec_count"`
 }
 
 // helloVariableSpecs contains global variables before they are loaded into the kernel.
@@ -95,10 +103,13 @@ func (o *helloObjects) Close() error {
 //
 // It can be passed to loadHelloObjects or ebpf.CollectionSpec.LoadAndAssign.
 type helloMaps struct {
+	ExecCount *ebpf.Map `ebpf:"exec_count"`
 }
 
 func (m *helloMaps) Close() error {
-	return _HelloClose()
+	return _HelloClose(
+		m.ExecCount,
+	)
 }
 
 // helloVariables contains all global variables after they have been loaded into the kernel.
